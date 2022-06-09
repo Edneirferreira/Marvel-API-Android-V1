@@ -1,12 +1,17 @@
 package daniel.lop.io.marvelappstarter.di
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import daniel.lop.io.marvelappstarter.data.local.MarvelDatabase
 import daniel.lop.io.marvelappstarter.data.remote.ServiceApi
 import daniel.lop.io.marvelappstarter.util.Constants
 import daniel.lop.io.marvelappstarter.util.Constants.BASE_URL
+import daniel.lop.io.marvelappstarter.util.Constants.DATABASE_NAME
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,19 +28,35 @@ object Module {
 
     @Singleton
     @Provides
+    fun provideMarvelDatabase(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context,
+        MarvelDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+
+    @Singleton
+    @Provides
+    fun provideMarvelDao(database: MarvelDatabase) = database.marvelDao()
+
+    @Singleton
+    @Provides
     fun provideOkHttpClient(): OkHttpClient{
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient().newBuilder()
-            .addInterceptor {chain ->
-                val currentTimeStamp = System.currentTimeMillis()
+            .addInterceptor { chain ->
+                val currentTimestamp = System.currentTimeMillis()
                 val newUrl = chain.request().url
                     .newBuilder()
-                    .addQueryParameter(Constants.TS, currentTimeStamp.toString())
+                    .addQueryParameter(Constants.TS, currentTimestamp.toString())
                     .addQueryParameter(Constants.APIKEY, Constants.PUBLIC_KEY)
-                    .addQueryParameter(Constants.HASH,
-                        provideToMd5Hash(currentTimeStamp.toString() + Constants.PUBLIC_KEY))
+                    .addQueryParameter(
+                        Constants.HASH,
+                        provideToMd5Hash(currentTimestamp.toString() + Constants.PRIVATE_KEY + Constants.PUBLIC_KEY)
+                    )
                     .build()
 
                 val newRequest = chain.request()

@@ -19,6 +19,6 @@ interface ServiceApi {
         @Path(
             value = "characterId",
             encoded = true
-        ) characterId: Int
+        )characterId: Int
     ): Response<ComicModelResponse>
 }

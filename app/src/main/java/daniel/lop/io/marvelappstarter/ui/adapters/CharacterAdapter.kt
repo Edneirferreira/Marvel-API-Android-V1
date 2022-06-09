@@ -11,6 +11,7 @@ import daniel.lop.io.marvelappstarter.R
 import daniel.lop.io.marvelappstarter.data.model.character.CharacterModel
 import daniel.lop.io.marvelappstarter.databinding.ItemCharacterBinding
 import daniel.lop.io.marvelappstarter.util.limitDescription
+import daniel.lop.io.marvelappstarter.util.loadImage
 import okhttp3.internal.http2.Http2Connection
 
 class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>(){
@@ -50,16 +51,17 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
         var character = characters[position]
         holder.binding.apply {
             tvNameCharacter.text = character.name
-            if (character.description == ""){
+            if (character.description == "") {
                 tvDescriptionCharacter.text =
                     holder.itemView.context.getString(R.string.text_description_empty)
-            }else{
+            } else {
                 tvDescriptionCharacter.text = character.description.limitDescription(100)
             }
-
-            Glide.with(holder.itemView.context)
-                .load(character.thumbnailModel.path + "." + character.thumbnailModel.extension)
-                .into(imgCharacter)
+            loadImage(
+                imgCharacter,
+                character.thumbnailModel.path,
+                character.thumbnailModel.extension
+            )
         }
 
         holder.itemView.setOnClickListener{
@@ -73,6 +75,10 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
 
     fun setOnClickListener(listener: (CharacterModel) -> Unit){
         onItemClickListener = listener
+    }
+
+    fun getCharacterPosition(position: Int): CharacterModel {
+        return characters[position]
     }
 }
 
