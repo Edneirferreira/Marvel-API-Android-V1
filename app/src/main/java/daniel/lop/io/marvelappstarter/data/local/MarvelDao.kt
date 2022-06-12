@@ -15,4 +15,5 @@ interface MarvelDao {
 
     @Delete
     suspend fun delete(characterModel: CharacterModel)
+
 }
