@@ -7,14 +7,14 @@
     android:background="@color/black"
     tools:context=".ui.activity.SplashActivity">
 
-    <com.google.android.material.textview.MaterialTextView
+   <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvSplash"
         style="@style/TextAppearance.MaterialComponents.Headline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/marvel"
         android:textAlignment="center"
-        android:textColor="#dd9f7d"
+        android:textColor="#931c16"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
