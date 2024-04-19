@@ -51,7 +51,7 @@ class DetailsCharacterViewModel @Inject constructor(
     }
 
     fun insert(characterModel: CharacterModel) = viewModelScope.launch {
-        repository.delete(characterModel)
+        repository.insert(characterModel)
 
 
     }
