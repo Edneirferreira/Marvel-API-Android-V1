@@ -79,9 +79,71 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:listitem="@layout/item_comic" />
+                tools:listitem="@layout/item_comic" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewEvent"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/events"
+                android:textAlignment="inherit"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/rvComics"
+                app:layout_constraintTop_toBottomOf="@+id/rvComics"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEvents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/textViewEvent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEvent"
+                tools:listitem="@layout/item_event" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewSeries"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/series"
+                android:textAlignment="inherit"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/rvEvents"
+                app:layout_constraintTop_toBottomOf="@+id/rvEvents"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSeries"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/textViewSeries"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSeries"
+                tools:listitem="@layout/item_event">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <ProgressBar
                 android:id="@+id/progressBarDetail"

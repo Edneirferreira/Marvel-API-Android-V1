@@ -9,9 +9,13 @@
     <string name="tv_item_description">O sucesso nasce do querer, da determinação e persistência em se chegar a um objetivo.</string>
     <string name="text_description_empty">Esse personagem não possui descrição.</string>
     <string name="comics">Comics</string>
+    <string name="events">Events</string>
+    <string name="series">Series</string>
 
     <!--    Details Character Fragment -->
     <string name="empty_list_comics">Esse personagem não possui comics</string>
+    <string name="empty_list_events">Esse personagem não possui events</string>
+    <string name="empty_list_series">Esse personagem não possui series</string>
     <string name="close_dialog">Fechar</string>
 
     <!--    Search Character Fragment -->
@@ -27,7 +31,7 @@
     <string name="message_delete_character">Deletado com sucesso!</string>
     <string name="tv_empty_text">Nada aqui.</string>
 
-    <!--    Menu details -->
+    <!--    Menu detailsComig -->
     <string name="favorite">Favoritar</string>
 
     <!--    Toast messages -->

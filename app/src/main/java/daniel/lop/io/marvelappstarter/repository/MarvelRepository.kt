@@ -11,6 +11,8 @@ class MarvelRepository @Inject constructor(
 ) {
     suspend fun list(nameStartsWith: String? = null) = api.list(nameStartsWith)
     suspend fun getComics(characterId: Int) = api.getComics(characterId)
+    suspend fun getEvents(characterId: Int) = api.getEvents(characterId)
+    suspend fun getSeries(characterId: Int) = api.getSeries(characterId)
 
     suspend fun insert(characterModel: CharacterModel) = dao.insert(characterModel)
     fun getAll() = dao.getAll()

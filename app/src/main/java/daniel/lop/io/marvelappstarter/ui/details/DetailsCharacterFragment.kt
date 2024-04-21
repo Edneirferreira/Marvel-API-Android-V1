@@ -13,6 +13,8 @@ import daniel.lop.io.marvelappstarter.R
 import daniel.lop.io.marvelappstarter.data.model.character.CharacterModel
 import daniel.lop.io.marvelappstarter.databinding.FragmentDetailsCharacterBinding
 import daniel.lop.io.marvelappstarter.ui.adapters.ComicAdapter
+import daniel.lop.io.marvelappstarter.ui.adapters.EventAdapter
+import daniel.lop.io.marvelappstarter.ui.adapters.SerieAdapter
 import daniel.lop.io.marvelappstarter.ui.base.BaseFragment
 import daniel.lop.io.marvelappstarter.ui.state.ResourceState
 import daniel.lop.io.marvelappstarter.util.hide
@@ -30,6 +32,9 @@ class DetailsCharacterFragment :
 
     private val args: DetailsCharacterFragmentArgs by navArgs()
     private val comicAdapter by lazy { ComicAdapter() }
+    private val eventAdapter by lazy { EventAdapter() }
+    private val serieAdapter by lazy { SerieAdapter() }
+
     private lateinit var characterModel: CharacterModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +49,10 @@ class DetailsCharacterFragment :
         setupRecycleView()
         onLoadingCharacter(characterModel)
         collectObserver()
+        setupRecycleViewEvents()
+        collectObserverEvents()
+        setupRecycleViewSeries()
+        collectObserverSeries()
         descriptionCharacter()
     }
 
@@ -64,7 +73,7 @@ class DetailsCharacterFragment :
     }
 
     private fun collectObserver() = lifecycleScope.launch() {
-        viewModel.details.collect { result ->
+        viewModel.detailsComic.collect { result ->
             when(result){
                 is ResourceState.Success ->{
                     binding.progressBarDetail.hide()
@@ -92,6 +101,63 @@ class DetailsCharacterFragment :
         }
     }
 
+    private fun collectObserverEvents() = lifecycleScope.launch() {
+        viewModel.detailsEvents.collect { result ->
+            when(result){
+                is ResourceState.Success ->{
+                    binding.progressBarDetail.hide()
+                    result.data?.let { values ->
+                        if (values.data.results.count() > 0){
+                            eventAdapter.events = values.data.results.toList()
+                        } else{
+                            toast(getString(R.string.empty_list_events))
+                        }
+                    }
+                }
+                is ResourceState.Error -> {
+                    binding.progressBarDetail.hide()
+                    result.message?.let { message ->
+                        Timber.tag("DetailsCharacter").e("Error -> $message")
+                        toast(message)
+                    }
+                }
+                is ResourceState.Loading -> {
+                    binding.progressBarDetail.show()
+                }
+                else -> {
+                }
+            }
+        }
+    }
+
+    private fun collectObserverSeries() = lifecycleScope.launch() {
+        viewModel.detailsSeries.collect { result ->
+            when(result){
+                is ResourceState.Success ->{
+                    binding.progressBarDetail.hide()
+                    result.data?.let { values ->
+                        if (values.data.results.count() > 0){
+                            serieAdapter.series = values.data.results.toList()
+                        } else{
+                            toast(getString(R.string.empty_list_events))
+                        }
+                    }
+                }
+                is ResourceState.Error -> {
+                    binding.progressBarDetail.hide()
+                    result.message?.let { message ->
+                        Timber.tag("DetailsCharacter").e("Error -> $message")
+                        toast(message)
+                    }
+                }
+                is ResourceState.Loading -> {
+                    binding.progressBarDetail.show()
+                }
+                else -> {
+                }
+            }
+        }
+    }
     private fun onLoadingCharacter(characterModel: CharacterModel) = with(binding)  {
         tvNameCharacterDetails.text = characterModel.name
         if (characterModel.description.isEmpty()){
@@ -112,6 +178,21 @@ class DetailsCharacterFragment :
         }
     }
 
+    private fun setupRecycleViewEvents() = with(binding){
+        rvSeries.apply {
+            adapter = eventAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun setupRecycleViewSeries() = with(binding){
+        rvSeries.apply {
+            adapter = serieAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_details, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -120,7 +201,7 @@ class DetailsCharacterFragment :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.favorite -> {
-               viewModel.insert(characterModel)
+                viewModel.insert(characterModel)
                 toast(getString(R.string.saved_successfully))
             }
         }
