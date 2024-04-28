@@ -42,7 +42,7 @@ class SearchCharacterFragment :
         collectObserver()
     }
 
-    private fun collectObserver() = lifecycleScope.launch() {
+    private fun collectObserver() = lifecycleScope.launch {
         viewModel.searchCharacter.collect { result ->
             when(result){
                 is ResourceState.Success ->{

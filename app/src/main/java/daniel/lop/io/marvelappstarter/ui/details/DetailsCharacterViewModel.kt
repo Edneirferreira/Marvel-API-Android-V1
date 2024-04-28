@@ -86,6 +86,7 @@ class DetailsCharacterViewModel @Inject constructor(
         }
         return ResourceState.Error(response.message())
     }
+
     fun insert(characterModel: CharacterModel) = viewModelScope.launch {
         repository.insert(characterModel)
     }

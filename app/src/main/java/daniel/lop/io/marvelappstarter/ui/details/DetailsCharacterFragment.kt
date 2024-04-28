@@ -72,7 +72,7 @@ class DetailsCharacterFragment :
             .show()
     }
 
-    private fun collectObserver() = lifecycleScope.launch() {
+    private fun collectObserver() = lifecycleScope.launch {
         viewModel.detailsComic.collect { result ->
             when(result){
                 is ResourceState.Success ->{
@@ -101,7 +101,7 @@ class DetailsCharacterFragment :
         }
     }
 
-    private fun collectObserverEvents() = lifecycleScope.launch() {
+    private fun collectObserverEvents() = lifecycleScope.launch {
         viewModel.detailsEvents.collect { result ->
             when(result){
                 is ResourceState.Success ->{
@@ -130,7 +130,7 @@ class DetailsCharacterFragment :
         }
     }
 
-    private fun collectObserverSeries() = lifecycleScope.launch() {
+    private fun collectObserverSeries() = lifecycleScope.launch {
         viewModel.detailsSeries.collect { result ->
             when(result){
                 is ResourceState.Success ->{
@@ -158,6 +158,8 @@ class DetailsCharacterFragment :
             }
         }
     }
+
+
     private fun onLoadingCharacter(characterModel: CharacterModel) = with(binding)  {
         tvNameCharacterDetails.text = characterModel.name
         if (characterModel.description.isEmpty()){
@@ -191,7 +193,6 @@ class DetailsCharacterFragment :
             layoutManager = LinearLayoutManager(context)
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_details, menu)
