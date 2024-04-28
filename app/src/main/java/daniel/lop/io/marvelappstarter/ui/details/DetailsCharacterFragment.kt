@@ -45,7 +45,7 @@ class DetailsCharacterFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         characterModel = args.character
-        viewModel.fetch(characterModel.id)
+        viewModel.fetchDetails(characterModel.id)
         setupRecycleView()
         onLoadingCharacter(characterModel)
         collectObserver()
@@ -117,7 +117,7 @@ class DetailsCharacterFragment :
                 is ResourceState.Error -> {
                     binding.progressBarDetail.hide()
                     result.message?.let { message ->
-                        Timber.tag("DetailsCharacter").e("Error -> $message")
+                        Timber.tag("DetailsEvents").e("Error -> $message")
                         toast(message)
                     }
                 }
@@ -146,7 +146,7 @@ class DetailsCharacterFragment :
                 is ResourceState.Error -> {
                     binding.progressBarDetail.hide()
                     result.message?.let { message ->
-                        Timber.tag("DetailsCharacter").e("Error -> $message")
+                        Timber.tag("DetailsSeries").e("Error -> $message")
                         toast(message)
                     }
                 }
@@ -179,7 +179,7 @@ class DetailsCharacterFragment :
     }
 
     private fun setupRecycleViewEvents() = with(binding){
-        rvSeries.apply {
+        rvEvents.apply {
             adapter = eventAdapter
             layoutManager = LinearLayoutManager(context)
         }

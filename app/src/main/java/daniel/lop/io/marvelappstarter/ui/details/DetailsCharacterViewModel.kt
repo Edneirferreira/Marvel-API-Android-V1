@@ -33,56 +33,35 @@ class DetailsCharacterViewModel @Inject constructor(
         MutableStateFlow<ResourceState<SerieModelResponse>>(ResourceState.Loading())
     val detailsSeries: StateFlow<ResourceState<SerieModelResponse>> = _details_series
 
-    fun fetch(characterId: Int) = viewModelScope.launch{
-        safeFetch(characterId)
-    }
-
-    fun fetchEvent(characterId: Int) = viewModelScope.launch{
-        safeFetch(characterId)
-    }
-
-    fun fetchSeries(characterId: Int) = viewModelScope.launch{
-        safeFetch(characterId)
-    }
-
-
-    private suspend fun safeFetch(characterId: Int){
-        _details_comics.value = ResourceState.Loading()
+    fun fetchDetails(characterId: Int) = viewModelScope.launch {
         try {
-            val response = repository.getComics(characterId)
-            _details_comics.value = handResponse(response)
-        }catch (t: Throwable){
-            when(t){
-                is IOException -> _details_comics.value =
-                    ResourceState.Error("Erro de rede ou de conexão com a internet")
-                else -> _details_comics.value = ResourceState.Error("Erro de conversão")
+            // Primeiro, definimos todos os estados como Loading
+            _details_comics.value = ResourceState.Loading()
+            _details_events.value = ResourceState.Loading()
+            _details_series.value = ResourceState.Loading()
+
+            // Em seguida, fazemos todas as chamadas de API
+            val comicsResponse = repository.getComics(characterId)
+            val eventsResponse = repository.getEvents(characterId)
+            val seriesResponse = repository.getSeries(characterId)
+
+            // Lidamos com as respostas individualmente
+            _details_comics.value = handleResponse(comicsResponse)
+            _details_events.value = handleResponseEvents(eventsResponse)
+            _details_series.value = handleResponseSeries(seriesResponse)
+        } catch (t: Throwable) {
+            // Em caso de erro, tratamos todos os fluxos de dados da mesma forma
+            val errorMessage = when (t) {
+                is IOException -> "Erro de rede ou de conexão com a internet"
+                else -> "Erro de conversão"
             }
-        }
-        _details_events.value = ResourceState.Loading()
-        try {
-            val response = repository.getEvents(characterId)
-            _details_events.value = handResponseEvents(response)
-        }catch (t: Throwable){
-            when(t){
-                is IOException -> _details_events.value =
-                    ResourceState.Error("Erro de rede ou conexão com a internet")
-                else -> _details_events.value = ResourceState.Error("Erro de conversão")
-            }
-        }
-        _details_series.value = ResourceState.Loading()
-        try {
-            val response = repository.getSeries(characterId)
-            _details_series.value = handResponseSeries(response)
-        }catch (t: Throwable){
-            when(t){
-                is IOException -> _details_series.value =
-                    ResourceState.Error("Erro de rede ou de conexão com a internet")
-                else -> _details_series.value = ResourceState.Error("Erro de conversão")
-            }
+            _details_comics.value = ResourceState.Error(errorMessage)
+            _details_events.value = ResourceState.Error(errorMessage)
+            _details_series.value = ResourceState.Error(errorMessage)
         }
     }
 
-    private fun handResponse(response: Response<ComicModelResponse>): ResourceState<ComicModelResponse> {
+    private fun handleResponse(response: Response<ComicModelResponse>): ResourceState<ComicModelResponse> {
         if (response.isSuccessful){
             response.body()?.let { values ->
                 return ResourceState.Success(values)
@@ -90,7 +69,7 @@ class DetailsCharacterViewModel @Inject constructor(
         }
         return ResourceState.Error(response.message())
     }
-    private fun handResponseEvents(response: Response<EventModelResponse>): ResourceState<EventModelResponse> {
+    private fun handleResponseEvents(response: Response<EventModelResponse>): ResourceState<EventModelResponse> {
         if (response.isSuccessful){
             response.body()?.let { values ->
                 return ResourceState.Success(values)
@@ -99,7 +78,7 @@ class DetailsCharacterViewModel @Inject constructor(
         return ResourceState.Error(response.message())
     }
 
-    private fun handResponseSeries(response: Response<SerieModelResponse>): ResourceState<SerieModelResponse> {
+    private fun handleResponseSeries(response: Response<SerieModelResponse>): ResourceState<SerieModelResponse> {
         if (response.isSuccessful){
             response.body()?.let { values ->
                 return ResourceState.Success(values)
