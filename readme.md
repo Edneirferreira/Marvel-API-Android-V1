@@ -1,6 +1,3 @@
 <h1 align="center">Projeto Legado Marvel</h1>
-
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger).
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/BjCwKq2/Legado-Marvel-Logo.jpg" alt="Legado-Marvel-Logo" border="0"></a>
 
