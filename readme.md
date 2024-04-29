@@ -5,11 +5,12 @@
 </div>
 
 ## Projeto Legado Marvel
-Projeto Marvel: Lista de Personagens, Quadrinhos, Séries e Histórias
-Este projeto Android Studio tem como objetivo criar um aplicativo que exiba informações sobre os personagens do universo Marvel, incluindo detalhes sobre seus quadrinhos, séries e histórias. Aqui está um exemplo de como você pode estruturar o seu README:
+Este projeto Android Studio tem como objetivo criar um aplicativo que exiba informações sobre os personagens do universo Marvel, incluindo sua descrição e uma lista de seus quadrinhos, séries e eventos. 
 
-Marvel Characters App
-O Marvel Characters App é um aplicativo Android que permite aos usuários explorar informações sobre os heróis e vilões da Marvel. Ele oferece as seguintes funcionalidades:
+#Legado Marvel APP
+O Legado Marvel App é um aplicativo Android que permite aos usuários explorar informações sobre os personagens da Marvel. Ele oferece as seguintes funcionalidades:
+
+- #¨Lista de Personagens: Exibe uma lista de personagens da Marvel com seu nome e descrição.
 
 Lista de Personagens: Exibe uma lista de personagens da Marvel.
 Detalhes do Personagem: Ao selecionar um personagem, o aplicativo mostra informações detalhadas, incluindo:
