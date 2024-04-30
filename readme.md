@@ -19,4 +19,10 @@ O Legado Marvel App é um aplicativo Android que permite aos usuários explorar 
     Quadrinhos em que o personagem aparece;
     Eventos relacionados ao personagem e
     Séries relacionadas ao personagem.
-  
+
+  - ### Pesquisar Personagens:
+  Esta opção permite ao usuário pesquisar um personagem pelo seu nome ou parte do nome
+
+  - ### Favoritar personagem:
+  Esta opção permite ao usuário marcar o seu personagem favorito.
+
