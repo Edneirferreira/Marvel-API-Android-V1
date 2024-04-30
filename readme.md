@@ -10,7 +10,8 @@ Este projeto Android Studio tem como objetivo criar um aplicativo que exiba info
 ## Legado Marvel APP
 O Legado Marvel App é um aplicativo Android que permite aos usuários explorar informações sobre os personagens da Marvel. Ele oferece as seguintes funcionalidades:
 
-- #¨Lista de Personagens: Exibe uma lista de personagens da Marvel com seu nome e descrição.
+- ### Lista de Personagens:
+  Exibe uma lista de personagens da Marvel com seu nome e descrição.
 
 Lista de Personagens: Exibe uma lista de personagens da Marvel.
 Detalhes do Personagem: Ao selecionar um personagem, o aplicativo mostra informações detalhadas, incluindo:
